@@ -108,3 +108,9 @@ venv.bak/
 
 
 pip-selfcheck.json
+
+
+# DATA
+/notMNIST_large
+/notMNIST_small
+*.tar.gz
