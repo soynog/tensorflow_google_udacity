@@ -1,3 +1,5 @@
+print("DOWNLOADING...")
+
 url = 'https://commondatastorage.googleapis.com/books1000/'
 last_percent_reported = None
 data_root = '.' # Change me to store data elsewhere

@@ -114,3 +114,4 @@ pip-selfcheck.json
 /notMNIST_large
 /notMNIST_small
 *.tar.gz
+*.pickle

@@ -1,3 +1,5 @@
+print("EXTRACTING...")
+
 num_classes = 10
 np.random.seed(133)
 

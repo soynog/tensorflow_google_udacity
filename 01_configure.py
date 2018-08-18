@@ -11,6 +11,9 @@ from IPython.display import display, Image
 from sklearn.linear_model import LogisticRegression
 from six.moves.urllib.request import urlretrieve
 from six.moves import cPickle as pickle
+import random
 
 # Config the matplotlib backend as plotting inline in IPython
 # %matplotlib inline
+
+print("CONFIGURING...")
