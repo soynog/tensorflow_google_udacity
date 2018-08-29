@@ -21,7 +21,7 @@ for l in range(10):
         plt.yticks([])
         plt.grid('off')
         # Display a random sampling of each letter
-        plt.imshow(imgs[random.randint(0,len(imgs))], cmap=plt.cm.binary)
+        plt.imshow(imgs[np.random.randint(0,len(imgs))], cmap=plt.cm.binary)
         plt.xlabel(letter_labels[l])
 
 plt.show()
