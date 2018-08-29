@@ -2,36 +2,36 @@
 
 # Compares two matrices and returns true if they're within a given tolerance
 def compare_matrices(a, b, tolerance=0.0):
-    return np.sqrt(sum(sum((a - b)**2))) <= tolerance
+    if tolerance == 0.0:
+        return (a == b).all()
+    else:
+        return ((a - b) <= tolerance).all()
 
-# How much of training dataset overlaps with validation dataset?
-train_size, valid_size, test_size = len(train_dataset), len(valid_dataset), len(test_dataset)
+# Calculates overlap between two lists of matrices, returning a boolean matrix
+def calculate_overlap(A, B, log=False):
+    overlap = np.zeros([len(A), len(B)])
+    for i,a in enumerate(A):
+        if log:
+            print(i)
+        for j,b in enumerate(B):
+            overlap[i,j] = int(compare_matrices(a,b))
+    return overlap
 
-valid_overlap, test_overlap = 0.0, 0.0
-valid_per, test_per = 0.0, 0.0
+# Prints out the overlap between two datasets, and returns a matrix of which elements overlap with which
+def display_overlap(A,B, a_label="A", b_label="B"):
+    print("CALCULATING OVERLAP B/W " + a_label + " AND " + b_label)
+    Overlap = calculate_overlap(A,B,log=True)
+    a_b_over_per = sum([i.any() for i in Overlap]) / float(len(A)) * 100
+    b_a_over_per = sum([i.any() for i in Overlap.T]) / float(len(B)) * 100
+    print(a_label + " overlap with " + b_label + ": %" + str(a_b_over_per))
+    print(b_label + " overlap with " + a_label + ": %" + str(b_a_over_per))
+    return Overlap
 
-# take a sample of the training set
-sample_size = 100
-np.random.shuffle(train_dataset)
-train_sample = train_dataset[:sample_size]
+# Calculate overlap between TRAINING and VALIDATION
+display_overlap(train_dataset,valid_dataset,a_label="TRAIN",b_label="VALID")
 
-for i, train_img in enumerate(train_sample):
-    for j, valid_img in enumerate(valid_dataset):
-        # print("...with validation img {n} of {size}".format(n=j,             size=valid_size))
-        if compare_matrices(train_img,valid_img):
-            valid_overlap += 1
-            print("VALID OVERLAP %s" % valid_overlap)
-            valid_per = valid_overlap / i * 100
-            break
-    for k, test_img in enumerate(test_dataset):
-        # print("...with test img {n} of {size}".format(n=k, size=test_size))
-        if(compare_matrices(train_img,test_img)):
-            test_overlap += 1
-            print("TEST OVERLAP %s" % test_overlap)
-            test_per = test_overlap / i * 100
-            break
-    print("Comparing training img {n} of {size}... valid overlap %{valid_per}, test overlap %{test_per}".format(n=i, size=sample_size, valid_per=valid_per, test_per=test_per))
+# Calculate overlap between TRAINING and TEST
+display_overlap(train_dataset,test_dataset,a_label="TRAIN",b_label="TEST")
 
-
-print("TEST OVERLAP: %s" % test_overlap)
-print("VALIDATION OVERLAP: %s" % valid_overlap)
+# Calculate overlap between TEST and VALIDATION
+display_overlap(test_dataset,valid_dataset,a_label="TEST",b_label="VALID")

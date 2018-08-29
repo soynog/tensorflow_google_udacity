@@ -1,4 +1,4 @@
-/# Runs all the other scripts, in order
+# Runs all the other scripts, in order
 
 print("RUNNING SCRIPTS...")
 execfile("01_configure.py")
