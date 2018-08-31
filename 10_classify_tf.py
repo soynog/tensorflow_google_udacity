@@ -1,3 +1,5 @@
+# Classify data using a basic TF model
+
 print("CLASSIFYING...")
 
 import tensorflow as tf
